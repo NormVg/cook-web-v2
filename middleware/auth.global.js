@@ -8,6 +8,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   console.log("   ➤ To:", to.path);
 
   const { data: session } = await authClient.useSession(useFetch);
+  console.log("🚀 ~ session:", session)
 
 
 
@@ -25,9 +26,9 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
 
 
-    // if (to.path === "/") {
-    //   return navigateTo("/profile");
-    // }
+    if (to.path === "/") {
+      return navigateTo("/profile");
+    }
   }
 
 });
