@@ -1,0 +1,19 @@
+meta {
+  name: get-tao-user
+  type: http
+  seq: 9
+}
+
+post {
+  url: http://localhost:3000/api/v2/user/get-tao-user
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "username":"thenormvg",
+    "taoAccessToken":"a",
+    "taoRefreshToken":"s"
+  }
+}

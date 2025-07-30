@@ -1,0 +1,16 @@
+meta {
+  name: get
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:3000/api/v2/template/get?username=thenormvg&uid=thenormvg/@nuxt/nuxt-full-stack
+  body: none
+  auth: inherit
+}
+
+params:query {
+  username: thenormvg
+  uid: thenormvg/@nuxt/nuxt-full-stack
+}

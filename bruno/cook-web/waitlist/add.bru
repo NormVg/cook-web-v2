@@ -1,0 +1,18 @@
+meta {
+  name: add
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/api/waitlist/add
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "email":"thenormvg@gmail.com",
+    "type":"advance"
+  }
+}
