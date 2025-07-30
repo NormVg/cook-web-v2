@@ -17,6 +17,6 @@ export const auth = betterAuth({
   },
 
   database: new ps.Pool({
-    connectionString: process.env.DATABASE_URL,
+    connectionString: process.env.AUTH_DATABASE_URL,
   }),
 });
