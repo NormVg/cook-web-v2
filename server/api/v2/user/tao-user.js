@@ -37,6 +37,8 @@ export default defineEventHandler(async (event) => {
 
     // return { statusCode: 200, data: data, status: "good" };
   } catch (error) {
+    console.log(error);
+
     return apiResponse(500, [], "Internal server error");
   }
 });
