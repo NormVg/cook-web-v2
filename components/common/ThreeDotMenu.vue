@@ -18,7 +18,7 @@
           <div
             v-for="item in items"
             :key="item.id"
-            class="menu-item"
+            :class="item.id === 'delete'? 'menu-item menu-item-red' : 'menu-item'"
             @click="handleClick(item)"
           >
             {{ item.label }}
@@ -146,6 +146,10 @@ const handleClick = (item) => {
   cursor: pointer;
   font-size: 14px;
   transition: background-color 0.15s ease;
+}
+
+.menu-item-red{
+  color: var(--pink);
 }
 
 .menu-item:hover {

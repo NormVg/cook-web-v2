@@ -37,6 +37,9 @@ const props = defineProps({
   },
   isHeaderTitle:{
     default:true
+  },
+  isFooter:{
+    default:true
   }
 });
 
@@ -92,7 +95,7 @@ const toggleSideBar = () => {
 
     <div id="main-box" v-if="isPage">
         <slot></slot>
-        <BasicFooter/>
+        <BasicFooter v-if="isFooter"/>
     </div>
 
 

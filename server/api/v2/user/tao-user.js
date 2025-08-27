@@ -1,46 +1,39 @@
 import axios from "axios";
+import { apiResponse } from "~/utils/apiResponse";
+import { auth } from "~/utils/auth";
+
 
 export default defineEventHandler(async (event) => {
   try {
-    const body = await readBody(event);
-
-    const runtimeConfig  = useRuntimeConfig()
 
 
-    if (!body || !body.username || !body.taoAccessToken || !body.taoRefreshToken) {
-      return { statusCode: 400, data: [], status: "args not found" }
+    const config = useRuntimeConfig()
+
+    const session = await auth.api.getSession({
+      headers: event.headers,
+    });
+
+    if (!session ) {
+
+      console.log("🚀 ~ file: tao-user.js:17 ~ session:", session);
+
+      return apiResponse(401, [], "Unauthorized");
+
+
     }
 
-    const url = getRequestURL(event)
+    const userName = session.user.username;
+    // console.log("🚀 ~ file: tao-user.js:23 ~ userName:", userName)
 
-    const appOrigin = `${url.protocol}//${url.host}`;
+    const url = `${config.public.taoAuthURL}/api/v2/service/get-user?username=${userName}&taoAuthToken=${config.public.taoAuthToken}&app=${config.public.appURL}`
+    const userData = await $fetch(url)
 
+    console.log("🚀 ~ file: tao-user.js:26 ~ userData:", userData)
 
-    const origin = `${getRequestProtocol(event)}://${getRequestHost(event)}`
-
-
-
-    const options = {
-      method: 'GET',
-      url: `${runtimeConfig.public.taoAuthURL}/api/data/user`,
-      params: {
-        username: body.username,
-        taoAuth: runtimeConfig.public.taoAuthToken,
-        app: origin,
-        accessToken: body.taoAccessToken,
-        refreshToken: body.taoRefreshToken
-      }
-    };
-
-
-      const { data } = await axios.request(options);
-      console.log(data);
-      return data //{ statusCode: 200, data: data, status: "good" };
-
-
+    return apiResponse(200, userData.data, "User fetched");
 
     // return { statusCode: 200, data: data, status: "good" };
   } catch (error) {
-    return { statusCode: 500, data: {}, status: error };
+    return apiResponse(500, [], "Internal server error");
   }
 });

@@ -1,16 +1,19 @@
 <template>
-  <div v-if="props.isLoadingVisible" class="loading-toast">
-    <div class="loading-toast-content">
-      <slot>
-        <span class="loader"></span>
-        <span class="message">Loading...</span>
-      </slot>
+  <Transition name="fade">
+
+    <div v-if="props.isLoadingVisible" class="loading-toast">
+      <div class="loading-toast-content">
+        <slot>
+          <span class="loader"></span>
+          <span class="message">Loading...</span>
+        </slot>
+      </div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps, Transition } from 'vue'
 
 const props = defineProps({
   isLoadingVisible: {
@@ -60,6 +63,16 @@ const props = defineProps({
   font-size: 0.95rem;
   font-weight: 500;
   color: white;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+.fade-enter-to, .fade-leave-from {
+  opacity: 1;
 }
 
 @keyframes spin {

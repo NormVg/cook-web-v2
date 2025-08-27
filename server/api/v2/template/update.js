@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+  import { eq } from "drizzle-orm";
 import { db, templateData } from "~/db/index";
 import { apiResponse } from "~/utils/apiResponse";
 

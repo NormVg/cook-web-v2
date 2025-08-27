@@ -1,27 +1,24 @@
 
 
-export const useGetTemplate = async  (template_id,userData) => {
-  const isSession = useCookie("isSession");
-  console.log("🚀 ~ useTemplate ~ isSession:", isSession.value);
+export const useGetTemplate = async (template_id, userData) => {
 
-  const runtimeConfig =   useRuntimeConfig()
-    // console.log(runtimeConfig.public.taoTokenWeb);
 
-    if (isSession.value) {
 
-      const usernameUser = userData.username;
-      console.log("🚀 ~ getTemplateData ~ usernameData:", usernameUser);
+  const runtimeConfig = useRuntimeConfig()
+  console.log(runtimeConfig.public.taoTokenWeb);
 
-      const {data} = await useFetch(`/api/v2/template/get?username=${usernameUser}&uid=${template_id}`,{
+  const usernameUser = userData.username;
+    console.log("🚀 ~ getTemplateData ~ usernameData:", usernameUser);
+
+    const { data } = await useFetch(`/api/v2/template/get?username=${usernameUser}&uid=${template_id}`, {
 
       headers: {
-            "X-COOK-APP": "web",
-            "X-COOK-KEY": runtimeConfig.public.taoTokenWeb,
-          },
-      })
+        "X-COOK-APP": "web",
+        "X-COOK-KEY": runtimeConfig.public.taoTokenWeb,
+      },
+    })
 
-      // console.log("🚀 ~ getTemplateData ~ data:", data.value.data[0])
+    // console.log("🚀 ~ getTemplateData ~ data:", data.value.data[0])
 
-      return data.value.data[0]
-    }
+    return data.value?.data
 };

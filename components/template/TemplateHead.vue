@@ -7,7 +7,7 @@
 
       <div id="mb-uuid">
         <div>{{ props.id }}</div>
-        <span @click="() => copyText(props.id)">
+        <span @click="() => copyInfo(props.id)">
           <Copy color="#FFFFFF" size="18px" />
         </span>
       </div>
@@ -47,8 +47,8 @@ const props = defineProps({
 
 })
 
-function copyText(text) {
-  navigator.clipboard.writeText(text);
+function copyInfo(text) {
+  copyText(text);
 }
 
 
@@ -141,4 +141,23 @@ main{
   border-bottom: 1px solid var(--border);
   margin-top: 20px;
 }
+
+@media only screen and (max-width: 768px){
+#mb-head {
+  margin-top: 10px;
+  font-size: 28px;
+  margin-left: 0px;
+}
+
+#mb-uuid {
+  margin-left: 0px;
+  font-size: 12px;
+}
+
+#mb-status {
+  margin-left: 0px;
+  font-size: 12px;}
+
+}
+
 </style>

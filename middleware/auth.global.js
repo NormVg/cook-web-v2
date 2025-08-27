@@ -27,7 +27,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
 
     if (to.path === "/") {
-      return navigateTo("/profile");
+      return navigateTo("/app");
     }
   }
 

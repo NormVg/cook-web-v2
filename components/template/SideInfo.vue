@@ -135,4 +135,11 @@ a {
   /* border: 1px solid salmon; */
   border-radius: 10px;
 }
+
+@media only screen and (max-width: 768px){
+#info-box{
+  width: 100%;
+  min-height: max-content;
+}
+}
 </style>

@@ -31,7 +31,7 @@ export default defineEventHandler(async (event) => {
       await addToTemplateDownloads(uid);
     }
 
-    return apiResponse(200, templateInfo[0], "Template fetched successfully");
+    return apiResponse(200, [templateInfo[0]], "Template fetched successfully");
   } catch (error) {
     console.error("Error:", error);
     return apiResponse(500, [], "Internal server error");

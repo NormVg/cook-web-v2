@@ -5,7 +5,11 @@ export default defineEventHandler(async (event) => {
   const runtimeConfig = useRuntimeConfig();
 
   try {
-    if (!event.path.startsWith("/api/v2/")) {
+    if (!event.path.startsWith("/api/v2/") ) {
+      return;
+    }
+
+    if (event.path === "/api/v2/user/tao-user") {
       return;
     }
 

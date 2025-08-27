@@ -24,6 +24,7 @@ export default defineNuxtConfig({
       taoAuthURL:process.env.TAO_AUTH_URL,
       taoAuthCallback:process.env.TAO_AUTH_CALLBACK,
       taoTokenWeb:process.env.TAO_TOKEN_WEB,
+      appURL:process.env.APP_URL,
     }
   },
 
@@ -34,5 +35,11 @@ export default defineNuxtConfig({
 
   },
 
-  modules: ["@nuxtjs/device","@pinia/nuxt","motion-v/nuxt","nuxt-nodemailer"],
+  modules: [
+    "@nuxtjs/device",
+    "@pinia/nuxt",
+    "motion-v/nuxt",
+    "nuxt-nodemailer",
+    "@vueuse/nuxt",
+  ],
 })

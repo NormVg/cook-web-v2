@@ -35,6 +35,8 @@ const searchTemplate = async () => {
   padding: 7px 10px;
   background-color: var(--bg);
   gap: 10px;
+  margin: 0px 20px;
+  margin-bottom: 20px;
 
   /* width: 90%; */
 }
@@ -51,4 +53,9 @@ input:focus {
   border: none;
   outline: none;
 }
+
+@media only screen and (max-width: 768px){
+#dtb-search {
+  margin: 0px 0px;
+}}
 </style>
