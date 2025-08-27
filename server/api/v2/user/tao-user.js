@@ -1,4 +1,3 @@
-import axios from "axios";
 import { apiResponse } from "~/utils/apiResponse";
 import { auth } from "~/utils/auth";
 
@@ -23,12 +22,16 @@ export default defineEventHandler(async (event) => {
     }
 
     const userName = session.user.username;
-    // console.log("🚀 ~ file: tao-user.js:23 ~ userName:", userName)
+    console.log("🚀 ~ file: tao-user.js:23 ~ userName:", userName)
 
     const url = `${config.public.taoAuthURL}/api/v2/service/get-user?username=${userName}&taoAuthToken=${config.public.taoAuthToken}&app=${config.public.appURL}`
+
+
     const userData = await $fetch(url)
 
+
     console.log("🚀 ~ file: tao-user.js:26 ~ userData:", userData)
+
 
     return apiResponse(200, userData.data, "User fetched");
 
