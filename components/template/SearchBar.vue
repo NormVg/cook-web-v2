@@ -18,7 +18,7 @@ const SearchTextFiled = ref('')
 
 
 const searchTemplate = async () => {
-    await navigateTo("/explore/search?text="+SearchTextFiled.value)
+    await navigateTo("/explore/search?q="+SearchTextFiled.value)
 
 }
 </script>

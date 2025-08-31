@@ -22,7 +22,7 @@ const props = defineProps({
     </div>
 
     <div id="nav-links">
-      <NuxtLink to="/" class="nav-link"> Home </NuxtLink>
+      <NuxtLink to="/?r=no" class="nav-link"> Home </NuxtLink>
 
       <!-- <NuxtLink to="/" class="nav-link"> Docs </NuxtLink> -->
 

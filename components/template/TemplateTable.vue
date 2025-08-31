@@ -25,6 +25,12 @@
       </table>
     </div>
     <LoadingToast :is-loading-visible="isLoading"/>
+    <ConfirmPopup
+      v-model="isOpen"
+      title="Delete Item"
+      message="Are you sure?"
+      @confirm="deleteItem"
+    />
 </template>
 
 <script  setup>
@@ -32,6 +38,8 @@
 import { useUpdateTemplate } from '~/composable/useUpdateTemplate';
 import ThreeDotMenu from '../common/ThreeDotMenu.vue';
 import LoadingToast from '../pop/LoadingToast.vue';
+import { useDeleteTemplate } from '~/composable/useDeleteTemplate';
+import ConfirmPopup from '../pop/ConfirmPopup.vue';
 
 const props = defineProps({
   CurrentTableData: {
@@ -51,6 +59,23 @@ const DotMenuOptions = [
   // { id: 'download', label: 'Download', action: 'handleDownload' },
   { id: 'delete', label: 'Delete', action: 'handleDelete' }
 ];
+
+
+
+const isOpen = ref(false)
+const deleteItemObject = ref({})
+
+
+// Handle confirm
+const deleteItem = async () => {
+  isLoading.value = true;
+  await useDeleteTemplate(deleteItemObject.value.id)
+  await emit('currentTableData');
+  setTimeout(() => {
+    isLoading.value = false;
+  }, 1000);
+
+}
 
 function handleOpen(item) {
   // window.location.href = `/template?uid=${item.id}`;
@@ -74,6 +99,15 @@ const handleToggleAccess = async (item) => {
   }, 1000);
 }
 
+const handleDelete = async (item) => {
+
+  isOpen.value = true;
+  deleteItemObject.value = item;
+
+
+
+}
+
 const handleMenuAction = async ({action,item}) => {
   // console.log(props);
 
@@ -87,9 +121,6 @@ const handleMenuAction = async ({action,item}) => {
       break;
     case 'handleToggleAccess':
       await handleToggleAccess(item);
-      break;
-    case 'handleDownload':
-      await handleDownload(item);
       break;
     case 'handleDelete':
       await handleDelete(item);

@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
       return apiResponse([], "No public templates found", 404);
     }
 
-    return apiResponse(templates, "Public templates fetched", 200);
+    return apiResponse( 200,templates, "Public templates fetched");
   } catch (error) {
     console.error("Error fetching templates:", error);
     return apiResponse([], "Internal server error", 500);

@@ -41,5 +41,6 @@ export default defineNuxtConfig({
     "motion-v/nuxt",
     "nuxt-nodemailer",
     "@vueuse/nuxt",
+    "nuxt-marquee",
   ],
 })

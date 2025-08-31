@@ -103,6 +103,14 @@ main{
 
 #mb-uuid div {
   color: whitesmoke;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#mb-uuid span{
+  margin-bottom: -1%;
+
 }
 
 #mb-uuid span:active {
@@ -122,6 +130,9 @@ main{
   gap: 10px;
   align-items: center;
   justify-content: center;
+
+  max-width: calc(100% - 50px);
+
 }
 
 #mb-status {
@@ -151,12 +162,12 @@ main{
 
 #mb-uuid {
   margin-left: 0px;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 #mb-status {
   margin-left: 0px;
-  font-size: 12px;}
+  font-size: 13px;}
 
 }
 

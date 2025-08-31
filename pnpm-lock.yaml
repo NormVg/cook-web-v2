@@ -53,6 +53,9 @@ importers:
       nuxt:
         specifier: ^3.17.7
         version: 3.17.7(@netlify/blobs@9.1.2)(@parcel/watcher@2.5.1)(@types/node@24.0.15)(@vue/compiler-sfc@3.5.17)(db0@0.3.2(drizzle-orm@0.44.3(@types/pg@8.15.4)(kysely@0.28.3)(pg@8.16.3)))(drizzle-orm@0.44.3(@types/pg@8.15.4)(kysely@0.28.3)(pg@8.16.3))(ioredis@5.6.1)(magicast@0.3.5)(rollup@4.45.1)(terser@5.43.1)(typescript@5.8.3)(vite@6.3.5(@types/node@24.0.15)(jiti@2.4.2)(terser@5.43.1)(yaml@2.8.0))(yaml@2.8.0)
+      nuxt-marquee:
+        specifier: 1.0.4
+        version: 1.0.4(magicast@0.3.5)(vue@3.5.17(typescript@5.8.3))
       pg:
         specifier: ^8.16.3
         version: 8.16.3
@@ -3044,6 +3047,9 @@ packages:
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
 
+  nuxt-marquee@1.0.4:
+    resolution: {integrity: sha512-FJ7uLhiLt7LQtmlcsJXq76aN+L1kHVLcJQPcUm0o4rW0bIda7LL4kZc4VB2t/VHiqzN7MRSq3lwXqUFV5zJ+wA==}
+
   nuxt-nodemailer@1.1.2:
     resolution: {integrity: sha512-oYi0AnEZu56euRxJ/G7NAQLmRct9ORgKvxF3AcAbVlxfKJJQ7kNPZnlymQbzg9F/SLBlQgSE+mSQR/3Wz6JOIg==}
     peerDependencies:
@@ -4183,6 +4189,11 @@ packages:
 
   vue-devtools-stub@0.1.0:
     resolution: {integrity: sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==}
+
+  vue-fast-marquee@1.0.6:
+    resolution: {integrity: sha512-VMqaeuBSS3L55Q84EuLJPHZ4Zv4UVBDXmh+2hb1IBTLKt/FmurJnWVXv8BNnbQSupA4kHbPlWDLwp+kvEMOF7A==}
+    peerDependencies:
+      vue: '>=3.2.0'
 
   vue-router@4.5.1:
     resolution: {integrity: sha512-ogAF3P97NPm8fJsE4by9dwSYtDwXIY1nFY9T6DyQnGHd1E2Da94w9JIolpe42LJGIl0DwOHBi8TcRPlPGwbTtw==}
@@ -7351,6 +7362,14 @@ snapshots:
     dependencies:
       boolbase: 1.0.0
 
+  nuxt-marquee@1.0.4(magicast@0.3.5)(vue@3.5.17(typescript@5.8.3)):
+    dependencies:
+      '@nuxt/kit': 3.18.1(magicast@0.3.5)
+      vue-fast-marquee: 1.0.6(vue@3.5.17(typescript@5.8.3))
+    transitivePeerDependencies:
+      - magicast
+      - vue
+
   nuxt-nodemailer@1.1.2(magicast@0.3.5)(nodemailer@7.0.5):
     dependencies:
       '@nuxt/kit': 3.17.7(magicast@0.3.5)
@@ -8605,6 +8624,10 @@ snapshots:
       vue: 3.5.17(typescript@5.8.3)
 
   vue-devtools-stub@0.1.0: {}
+
+  vue-fast-marquee@1.0.6(vue@3.5.17(typescript@5.8.3)):
+    dependencies:
+      vue: 3.5.17(typescript@5.8.3)
 
   vue-router@4.5.1(vue@3.5.17(typescript@5.8.3)):
     dependencies:

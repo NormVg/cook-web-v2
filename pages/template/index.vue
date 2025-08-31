@@ -74,11 +74,13 @@ if (isSession) {
     isPage.value = false;
   }
     templateData.value = templateDataPublicRaw[0];
+    console.log(templateDataPublicRaw,"asdasdas");
 
+
+  }else{
+    templateData.value = templateDataRaw[0];
 
   }
-
-  templateData.value = templateDataRaw[0];
 } else {
   const templateDataRaw = await useGetPublicTemplate(route.query.uid);
 

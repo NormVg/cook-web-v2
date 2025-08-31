@@ -4,6 +4,28 @@
     <DashboardHeader title="Settings" sub="Manage your account"/>
 
 
+    <SettingsCard title="Account">
+      <div id="settings-box">
+        <div class="account-name">
+          <span class="account-title">
+            {{ cookUserRaw[0]?.name || 'N/A' }}
+          </span>
+        </div>
+        <div class="account-username">
+          @{{ cookUserRaw[0]?.username || 'N/A' }}
+        </div>
+        <div class="account-actions">
+          <button @click="openAccount" class="account-btn">
+            Open Account
+          </button>
+          <button @click="logout" class="account-btn logout-btn">
+            <LogOut size="16px" />
+            Logout
+          </button>
+        </div>
+      </div>
+    </SettingsCard>
+
   <SettingsCard title="CLI Connection Key">
       <div id="key-comp">
         {{ ConnectionKey
@@ -65,16 +87,19 @@ const reNewKeys = async () => {
   ConnectionKey.value = newKey || '********************'
 };
 
+const openAccount = () => {
+  window.open('https://accounts.taohq.org', '_blank', 'noopener,noreferrer');
+}
+
+const logout = async () => {
+  await authClient.signOut();
+  await navigateTo("/");
+}
+
+
 </script>
 
 <style scoped>
-#settings-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
-  gap: 15px;
-}
 
 #key-comp {
   font-family: monospace;
@@ -116,5 +141,57 @@ const reNewKeys = async () => {
   background-color: var(--bg);
 }
 
+.account-name {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.account-title {
+  color: var(--primary);
+}
+
+.account-username {
+  font-size: 1rem;
+  color: var(--text2);
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
+
+.account-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.account-btn {
+  border: 1px solid var(--border);
+  background-color: var(--bg2);
+  color: var(--primary);
+  padding: 6px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s;
+}
+
+.account-btn:hover {
+  background-color: var(--bg3);
+}
+
+.logout-btn {
+  border-color: var(--red);
+}
+
+#settings-box {
+  margin-top: -10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
 
 </style>
+

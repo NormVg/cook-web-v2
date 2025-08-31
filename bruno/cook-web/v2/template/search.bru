@@ -1,0 +1,19 @@
+meta {
+  name: search
+  type: http
+  seq: 10
+}
+
+get {
+  url: http://app.localtest.me:3000/api/v2/template/search?q=js
+  body: none
+  auth: inherit
+}
+
+params:query {
+  q: js
+}
+
+settings {
+  encodeUrl: true
+}

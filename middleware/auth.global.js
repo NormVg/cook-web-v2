@@ -10,13 +10,15 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   const { data: session } = await authClient.useSession(useFetch);
   console.log("🚀 ~ session:", session.value)
 
+  const config = useRuntimeConfig()
 
 
   if (!session.value) {
 
 
     if (String(to.path).startsWith("/app")  ) {
-      return navigateTo("/");
+
+      return navigateTo(config.public.taoAuthURL || "/",{external: true} );
     }
 
 
@@ -27,6 +29,9 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
 
     if (to.path === "/") {
+      if (to.query.r === 'no') {
+        return navigateTo("/app/template")
+      }
       return navigateTo("/app");
     }
   }
