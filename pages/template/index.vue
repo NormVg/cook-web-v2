@@ -63,12 +63,22 @@ const templateData = ref({
   category: "loading...",
 });
 
+
+import { marked } from 'marked'
+
+function toPlainText(md = '') {
+  // Convert markdown → HTML
+  const html = marked.parse(md)
+  // Strip HTML tags → plain text
+  return html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+}
+
 const updateSeo = async (tpl) => {
   useCookSeo({
     title: `${tpl.name} – Cook`,
-    description: tpl?.info?.slice(0, 150),
+    description: toPlainText(tpl.info).slice(0, 150),
     ogTitle: tpl?.name,
-    ogDescription: tpl?.info?.slice(0, 200),
+    ogDescription: toPlainText(tpl.info).slice(0, 200),
   });
 };
 
