@@ -41,6 +41,7 @@ import { useGetUser } from "~/composable/useGetUser";
 import { useGetTemplate } from "~/composable/useGetTemplate";
 import { useIsSession } from "~/composable/useIsSession";
 import { useGetPublicTemplate } from "~/composable/useGetPublicTemplate";
+import { useCookSeo } from "~/composable/useCookSeo";
 
 const isPage = ref(true);
 const markdown = ref("# My Template");
@@ -62,24 +63,32 @@ const templateData = ref({
   category: "loading...",
 });
 
+const updateSeo = async (tpl) => {
+  useCookSeo({
+    title: `${tpl.name} – Cook`,
+    description: tpl?.info?.slice(0, 150),
+    ogTitle: tpl?.name,
+    ogDescription: tpl?.info?.slice(0, 200),
+  });
+};
+
 if (isSession) {
   console.log("User is logged in");
 
   const templateDataRaw = await useGetTemplate(route.query.uid, userData);
   if (templateDataRaw.length === 0) {
-
     const templateDataPublicRaw = await useGetPublicTemplate(route.query.uid);
 
-  if (templateDataPublicRaw.length === 0) {
-    isPage.value = false;
-  }
+    if (templateDataPublicRaw.length === 0) {
+      isPage.value = false;
+    }
     templateData.value = templateDataPublicRaw[0];
-    console.log(templateDataPublicRaw,"asdasdas");
+    updateSeo(templateData.value);
 
-
-  }else{
+    console.log(templateDataPublicRaw, "asdasdas");
+  } else {
     templateData.value = templateDataRaw[0];
-
+    updateSeo(templateData.value);
   }
 } else {
   const templateDataRaw = await useGetPublicTemplate(route.query.uid);
@@ -89,7 +98,7 @@ if (isSession) {
   }
 
   templateData.value = templateDataRaw[0];
-
+  updateSeo(templateData.value);
   console.log(templateDataRaw, "🚀 ~ templateDataRaw:", templateDataRaw);
 
   console.log("User is not logged in");
@@ -119,16 +128,15 @@ main {
   margin-top: 20px;
 }
 
-
-@media only screen and (max-width: 768px){
-  main{
+@media only screen and (max-width: 768px) {
+  main {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     gap: 10px;
   }
 
-  #markdown-box{
+  #markdown-box {
     width: 100%;
     margin-left: 0;
   }
