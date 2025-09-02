@@ -1,6 +1,7 @@
 <template>
  <NuxtPage />
-</template>
+ <NuxtLoadingIndicator color="#00FF87"  />
+ </template>
 <script setup>
 // import "~/assets/global.css"
 useSeoMeta({

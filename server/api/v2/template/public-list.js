@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
       .where(eq(templateData.public, true));
 
     if (templates.length === 0) {
-      return apiResponse([], "No public templates found", 404);
+      return apiResponse(404,[], "No public templates found");
     }
 
     return apiResponse( 200,templates, "Public templates fetched");

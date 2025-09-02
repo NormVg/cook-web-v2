@@ -1,20 +1,34 @@
+import { useCookUserStore } from "~/strore/useCookUserStore";
+
 export const useCookUser = async (dataUser) => {
 
   const runtimeConfig =   useRuntimeConfig()
 
+  const cookUserStore = useCookUserStore()
 
-  const { data: userData } = await useFetch(`/api/v2/user/get-by-user`,{
-          headers: {
-            "X-COOK-APP": "web",
-            "X-COOK-KEY": runtimeConfig.public.taoTokenWeb,
-          },
-          query:{
-            username:dataUser.username
-          }
-  });
+  if (cookUserStore.userCookData.length === 0){
 
-  console.log("🚀 ~ getTemplateData ~ userData by xyzzzz:", userData.value);
 
-return userData.value?.data ;
+    const { data: userData } = await useFetch(`/api/v2/user/get-by-user`,{
+      headers: {
+        "X-COOK-APP": "web",
+        "X-COOK-KEY": runtimeConfig.public.taoTokenWeb,
+      },
+      query:{
+        username:dataUser.username
+      }
+    });
+
+    console.log("🚀 ~ getTemplateData ~ userData by xyzzzz:", userData.value);
+
+    cookUserStore.updateCookData(userData.value?.data)
+
+
+    return userData.value?.data ;
+  }else{
+    console.log("<cook-user-data-avalable>",cookUserStore.userCookData);
+
+    return cookUserStore.userCookData
+  }
 
 }

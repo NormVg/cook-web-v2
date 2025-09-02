@@ -66,7 +66,11 @@ import { appNav } from '~/config/appNav.conf';
 import { LogOut, Copy, RotateCcwKey } from "lucide-vue-next";
 import { useRenewConKey } from '~/composable/useRenewConKey';
 import DashboardHeader from '~/components/common/DashboardHeader.vue';
+import { useTaoUserStore } from '~/strore/useTaoUserStore';
+import { useCookUserStore } from '~/strore/useCookUserStore';
 
+const taoUserStore = useTaoUserStore()
+const cookUserStore = useCookUserStore()
 
 const ConnectionKey = ref('********************')
 
@@ -93,6 +97,10 @@ const openAccount = () => {
 
 const logout = async () => {
   await authClient.signOut();
+
+  taoUserStore.updateTaoData([])
+  cookUserStore.updateCookData([])
+
   await navigateTo("/");
 }
 

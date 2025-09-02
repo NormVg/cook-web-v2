@@ -1,7 +1,7 @@
 <template>
   <BasicPage :is-page="isPage">
     <ExploreHeader />
-    <ExploreFeatured :items="feturedList"/>
+    <ExploreFeatured :items="feturedList" />
 
     <ExploreCategory
       name="FEATURED TEMPLATES"
@@ -35,23 +35,28 @@ const FeaturedTemplates = ref([])
 
 
 const rawTemplatesPublicList = await useListPublicTemplate();
-console.log(rawTemplatesPublicList);
+// console.log(rawTemplatesPublicList,"asdasdas");
+
+if (rawTemplatesPublicList.length === 0) {
+  isPage.value = false
+}else{
 
 
-const publicTemplatesListRaw = rawTemplatesPublicList.map(item => ({
-  name: `@${item.category}/${item.name}`,
-  type: 'template',
-  items: item.stack,
-  link: `/template?uid=${item.id}`
-}));
+  const publicTemplatesListRaw = rawTemplatesPublicList.map(item => ({
+    name: `@${item.category}/${item.name}`,
+    type: 'template',
+    items: item.stack,
+    link: `/template?uid=${item.id}`
+  }));
 
-feturedList.value = publicTemplatesListRaw
+  feturedList.value = publicTemplatesListRaw
   .sort((a, b) => b.downloads - a.downloads)
   .slice(0, 5);
 
-FeaturedTemplates.value = publicTemplatesListRaw
+  FeaturedTemplates.value = publicTemplatesListRaw
   .sort((a, b) => b.downloads - a.downloads)
   .slice(0, 8);
+}
 
 </script>
 

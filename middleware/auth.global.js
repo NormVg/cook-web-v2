@@ -1,3 +1,5 @@
+import { useCookUserStore } from "~/strore/useCookUserStore";
+import { useTaoUserStore } from "~/strore/useTaoUserStore";
 import { authClient } from "~/utils/auth-client";
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
@@ -12,9 +14,14 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
   const config = useRuntimeConfig()
 
+    const taoUserStore = useTaoUserStore()
+    const cookUserStore = useCookUserStore()
+
 
   if (!session.value) {
 
+    taoUserStore.updateTaoData([])
+    cookUserStore.updateCookData([])
 
     if (String(to.path).startsWith("/app")  ) {
 

@@ -7,16 +7,30 @@ export default defineEventHandler(async (event) => {
     const { uid } = getQuery(event);
 
     if (!uid) {
-      return apiResponse([], "UID is required", 400);
+      return apiResponse( 400,[], "UID is required");
     }
+
+    const templateDataRaw = await db.select().from(templateData).where(eq(templateData.id,uid))
+
+    if (templateDataRaw.length === 0) {
+      return apiResponse(404, [], 'uid not found');
+
+    }
+    console.log(templateDataRaw[0]);
 
     const deleted = await db
       .delete(templateData)
       .where(eq(templateData.id, uid));
 
-    return apiResponse([], "Template deleted", 200);
+    await $fetch("/api/v2/bucket/remove",{
+      query:{
+        file:templateDataRaw[0].fileID
+      }
+    })
+
+    return apiResponse(200,[], "Template deleted");
   } catch (error) {
     console.error("Delete error:", error);
-    return apiResponse([], "Internal server error", 500);
+    return apiResponse(500,[], "Internal server error");
   }
 });
