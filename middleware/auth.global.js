@@ -17,6 +17,10 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     const taoUserStore = useTaoUserStore()
     const cookUserStore = useCookUserStore()
 
+  if (to.path.startsWith("/app")) {
+    return navigateTo("/");
+  }
+
 
   if (!session.value) {
 

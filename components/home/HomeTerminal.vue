@@ -49,9 +49,11 @@ import { motion } from 'motion-v'
 import { ref, onMounted } from 'vue'
 
 const lines = [
-  { type: 'command', text: 'cook --version' },
+  { type: 'command', text: 'cook version' },
   { type: 'output', text: 'COOK CLI v0.1.0-alpha', class: 'version' },
-  { type: 'command', text: 'cook list recipes' },
+  { type: 'command', text: 'cook auth login' },
+  { type: 'success', text: 'Successfully logged in!' },
+  { type: 'command', text: 'cook mold list' },
   { type: 'list', items: [
     '• @react/vite',
     '• @react/mongo-express-bun',
@@ -63,9 +65,9 @@ const lines = [
     '• @go/cobra-bubble',
     '• @go/fiber-auth-postgres'
   ]},
-  { type: 'command', text: 'cook prep @go/cobra-bubble' },
-  { type: 'success', text: 'Recipe ready! Estimated cooking time: 15 sec' },
-  { type: 'command', text: 'cook run serve' },
+  { type: 'command', text: 'cook mold use @go/cobra-bubble' },
+  { type: 'success', text: 'Mold applied successfully!' },
+  { type: 'command', text: 'cook cmd run --hot' },
   { type: 'link', label: 'Local', url: 'http://localhost:3000/' }
 ]
 
