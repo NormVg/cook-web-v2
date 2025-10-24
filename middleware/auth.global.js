@@ -25,7 +25,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
     if (String(to.path).startsWith("/app")  ) {
 
-      return navigateTo(config.public.taoAuthURL || "/",{external: true} );
+      return navigateTo(config.public.taoAuthURL || "/?next=" + to.path,{external: true} );
     }
 
 
