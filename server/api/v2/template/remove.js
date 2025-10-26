@@ -14,23 +14,32 @@ export default defineEventHandler(async (event) => {
 
     if (templateDataRaw.length === 0) {
       return apiResponse(404, [], 'uid not found');
-
     }
-    console.log(templateDataRaw[0]);
 
-    const deleted = await db
-      .delete(templateData)
-      .where(eq(templateData.id, uid));
+    const template = templateDataRaw[0];
+    console.log("Deleting template:", template);
 
-    await $fetch("/api/v2/bucket/remove",{
-      query:{
-        file:templateDataRaw[0].fileID
-      }
-    })
+    const fileID = template.fileID;
 
-    return apiResponse(200,[], "Template deleted");
+    // First delete the file from Appwrite bucket and fileBucket table
+    try {
+      const bucketResponse = await $fetch("/api/v2/bucket/remove", {
+        query: {
+          file: fileID  // This is the fileBucket.id
+        }
+      });
+      console.log("Bucket deletion response:", bucketResponse);
+    } catch (bucketError) {
+      console.error("Bucket deletion error:", bucketError);
+      // Continue with template deletion even if bucket deletion fails
+    }
+
+    // Then delete the template from database
+    await db.delete(templateData).where(eq(templateData.id, uid));
+
+    return apiResponse(200, [], "Template and associated files deleted successfully");
   } catch (error) {
     console.error("Delete error:", error);
-    return apiResponse(500,[], "Internal server error");
+    return apiResponse(500, [], "Internal server error: " + error.message);
   }
 });

@@ -18,6 +18,8 @@ export default defineNuxtConfig({
     appWriteKey: process.env.APPWRITE_API_KEY,
     appWriteProject: process.env.APPWRITE_API_PROJECT,
     appWriteBucket: process.env.APPWRITE_API_BUCKET,
+    adminUsername: process.env.ADMIN_USERNAME,
+    adminPassword: process.env.ADMIN_PASSWORD,
     public:{
 
       taoAuthToken :process.env.TAO_AUTH_TOKEN,
