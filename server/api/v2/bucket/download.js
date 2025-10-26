@@ -25,7 +25,8 @@ export default defineEventHandler(async (event) => {
       runtimeConfig.appWriteBucket
     );
 
-    return apiResponse(200, [resp], "File downloaded successfully");
+
+    return apiResponse(200, [{"file":resp}], "File downloaded successfully");
   } catch (error) {
     console.error(error);
     return apiResponse(500, [], "Download failed");
