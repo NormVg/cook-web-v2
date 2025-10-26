@@ -29,7 +29,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
     if (String(to.path).startsWith("/app")  ) {
 
-      return navigateTo( "https://accounts.taohq.org/login?next=" + to.path,{external: true} );
+      return navigateTo( "https://accounts.taohq.org/login?next=" + `https://cook.taohq.org${to.path}`,{external: true} );
     }
 
 
