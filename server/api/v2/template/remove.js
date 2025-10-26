@@ -21,12 +21,18 @@ export default defineEventHandler(async (event) => {
 
     const fileID = template.fileID;
 
+    const runtimeConfig = useRuntimeConfig()
+
     // First delete the file from Appwrite bucket and fileBucket table
     try {
       const bucketResponse = await $fetch("/api/v2/bucket/remove", {
         query: {
           file: fileID  // This is the fileBucket.id
-        }
+        },
+        headers: {
+            "X-COOK-APP": "web",
+            "X-COOK-KEY": runtimeConfig.public.taoTokenWeb,
+          },
       });
       console.log("Bucket deletion response:", bucketResponse);
     } catch (bucketError) {
