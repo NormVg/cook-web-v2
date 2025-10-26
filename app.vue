@@ -1,8 +1,10 @@
 <template>
  <NuxtPage />
  <NuxtLoadingIndicator color="#00FF87"  />
+<Analytics/>
  </template>
 <script setup>
+import { Analytics } from '@vercel/analytics/nuxt'
 // import "~/assets/global.css"
 useSeoMeta({
   title: 'Cook – Swiss Army Tool for Developers',
