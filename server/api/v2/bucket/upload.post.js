@@ -5,6 +5,9 @@ import { apiResponse } from "~/utils/apiResponse";
 
 export default defineEventHandler(async (event) => {
   const formData = await readMultipartFormData(event);
+  const query = getQuery(event);
+  const fileType = query?.type || "template";
+
   const file = formData?.[0];
 
   if (!file || !file.data || !file.filename) {
@@ -30,10 +33,10 @@ export default defineEventHandler(async (event) => {
       id: dbFileID,
       pointer: fileUploadedID,
       datetime: new Date().toISOString(),
-      type: "template"
+      type: fileType
     });
 
-    return apiResponse(true, [dbFileID], "File uploaded and saved to DB");
+    return apiResponse(true, [{"file":dbFileID}], "File uploaded and saved to DB");
   } catch (error) {
     console.error("Upload error:", error);
     throw createError({ statusCode: 500, statusMessage: "Upload failed" });
