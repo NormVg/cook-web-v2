@@ -17,9 +17,9 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     const taoUserStore = useTaoUserStore()
     const cookUserStore = useCookUserStore()
 
-  if (to.path.startsWith("/app")) {
-    return navigateTo("/");
-  }
+  // if (to.path.startsWith("/app")) {
+  //   return navigateTo("/");
+  // }
 
 
   if (!session.value) {
@@ -29,7 +29,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
     if (String(to.path).startsWith("/app")  ) {
 
-      return navigateTo(config.public.taoAuthURL || "/?next=" + to.path,{external: true} );
+      return navigateTo( "https://accounts.taohq.org/login?next=" + to.path,{external: true} );
     }
 
 

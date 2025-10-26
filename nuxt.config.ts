@@ -5,13 +5,13 @@ export default defineNuxtConfig({
   css: ["~/assets/main.css"],
 
   nodemailer: {
-    from: '"TheAlphaOnes" <thealphaones.hq@gmail.com>',
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
+    from: '"TheAlphaOnes" <no-reply@mail.taohq.org>',
+    host: "smtp.maildiver.com",
+    port: 587,
+    secure: false, // true for port 465, false for 587
     auth: {
-      user: process.env.MAIL_ACC,
-      pass: process.env.MAIL_PASS,
+      user: "maildiver",
+      pass: process.env.MAIL_DIVER_API_KEY,
     },
   },
   runtimeConfig: {
