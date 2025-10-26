@@ -5,11 +5,11 @@ meta {
 }
 
 post {
-  url: http://localhost:3000/api/v2/bucket/upload
+  url: https://cook.taohq.org/api/v2/bucket/upload
   body: multipartForm
   auth: inherit
 }
 
 body:multipart-form {
-  file: @file(/home/vishnu/Downloads/cook_template_nuxt-test-template-22.tar.zst)
+  file: @file(/Users/vishnu_mac/Desktop/room/cook/cook-cli/template_test/cook_template_cook-test-22.tar.zst)
 }
