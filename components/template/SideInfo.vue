@@ -7,9 +7,11 @@
         <span class="ib-text">{{ props.version }}</span>
       </div>
 
-      <div class="ib-info">
+      <div class="ib-info author-link">
         author:
-        <span class="ib-text">{{ props.author }}</span>
+        <NuxtLink :to="`/explore/user/${props.author}`" class="ib-text author-name">
+          {{ props.author }}
+        </NuxtLink>
       </div>
 
       <div class="ib-info">
@@ -77,6 +79,19 @@ const props = defineProps({
 a {
   text-decoration: none;
 }
+
+.author-link {
+  cursor: pointer;
+}
+
+.author-name {
+  transition: opacity 0.2s ease;
+}
+
+.author-name:hover {
+  opacity: 0.7;
+}
+
 .github-card:hover {
   border-bottom: 1px solid var(--green);
 }

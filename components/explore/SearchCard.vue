@@ -24,7 +24,7 @@
             version: {{ props.version }}
           </span> •
           <span>
-            author: {{ props.author }}
+            author: <NuxtLink :to="`/explore/user/${props.author}`" class="author-link" @click.stop>{{ props.author }}</NuxtLink>
           </span> •
           <span>
             published: {{ props.published }}
@@ -198,5 +198,14 @@ padding-top: 5px;
   height: 10px;
   width: 100%;
 }
+}
+
+.author-link {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.author-link:hover {
+  opacity: 0.7;
 }
 </style>

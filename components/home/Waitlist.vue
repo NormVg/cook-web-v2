@@ -16,36 +16,58 @@ const cstyle = computed(() => {
 });
 
 const isWaiting = ref(false);
+const showSuccess = ref(false);
+const errorMessage = ref("");
 
 const changeSelected = (param) => {
   selected.value = param;
 };
 
 const waitlistJoin = async () => {
+  // Prevent multiple submissions
   if (isWaiting.value) {
     return;
   }
 
   if (!email.value.trim()) {
-    alert("Please enter a valid email address.");
+    errorMessage.value = "Please enter a valid email address.";
+    setTimeout(() => errorMessage.value = "", 3000);
     return;
   }
 
   isWaiting.value = true;
-  const types = ["beginner", "intermediate", "advance"];
-  const selectedType = types[selected.value];
+  errorMessage.value = "";
 
-  const data = await $fetch("/api/waitlist/add", {
-    method: "POST",
-    body: { email: email.value, type: selectedType },
-  });
+  try {
+    const types = ["beginner", "intermediate", "advance"];
+    const selectedType = types[selected.value];
 
-  email.value = "";
-  selected.value = 1;
-  isWaiting.value = false;
+    const data = await $fetch("/api/waitlist/add", {
+      method: "POST",
+      body: { email: email.value, type: selectedType },
+    });
 
-  console.log(data);
-  alert("added you to waitlist");
+    console.log(data);
+
+    // Show success message
+    showSuccess.value = true;
+
+    // Reset form
+    email.value = "";
+    selected.value = 1;
+
+    // Hide success message after 5 seconds
+    setTimeout(() => {
+      showSuccess.value = false;
+    }, 5000);
+
+  } catch (error) {
+    console.error("Waitlist submission error:", error);
+    errorMessage.value = error.data?.msg || "Failed to join waitlist. Please try again.";
+    setTimeout(() => errorMessage.value = "", 3000);
+  } finally {
+    isWaiting.value = false;
+  }
 };
 
 </script>
@@ -59,6 +81,22 @@ const waitlistJoin = async () => {
 
   >
     <h2>JOIN THE WAITLIST</h2>
+
+    <!-- Success Message -->
+    <Transition name="slide-down">
+      <div v-if="showSuccess" class="success-message">
+        <span class="success-icon">✓</span>
+        <span>Welcome aboard! Check your email for confirmation.</span>
+      </div>
+    </Transition>
+
+    <!-- Error Message -->
+    <Transition name="slide-down">
+      <div v-if="errorMessage" class="error-message">
+        <span class="error-icon">⚠</span>
+        <span>{{ errorMessage }}</span>
+      </div>
+    </Transition>
 
     <motion.div id="email-box"
     :initial="{ opacity: 0, }"
@@ -105,7 +143,17 @@ const waitlistJoin = async () => {
       </motion.div>
     </div>
 
-    <div id="join-btn" @click="waitlistJoin()">JOIN</div>
+    <div
+      id="join-btn"
+      @click="waitlistJoin()"
+      :class="{ 'submitting': isWaiting, 'disabled': isWaiting }"
+    >
+      <span v-if="!isWaiting">JOIN</span>
+      <span v-else class="button-loader">
+        <span class="spinner"></span>
+        JOINING...
+      </span>
+    </div>
   </motion.div>
 
 </template>
@@ -139,10 +187,42 @@ const waitlistJoin = async () => {
   font-size: 18px;
   color: var(--green);
   transition: all ease-in-out 200ms;
-user-select: none;
+  user-select: none;
+  cursor: pointer;
 }
 
-#join-btn:hover{
+#join-btn.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+#join-btn.submitting {
+  background-color: var(--green);
+  color: var(--bg);
+}
+
+.button-loader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--bg);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#join-btn:hover:not(.disabled){
   background-color: var(--green);
   color: var(--bg2);
 
@@ -203,6 +283,79 @@ h2 {
   color: var(--green);
 }
 
+/* Success Message */
+.success-message {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 245, 160, 0.1);
+  border: 1px solid var(--green);
+  border-radius: 8px;
+  padding: 14px 18px;
+  color: var(--green);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.success-icon {
+  width: 24px;
+  height: 24px;
+  background: var(--green);
+  color: var(--bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* Error Message */
+.error-message {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 0, 110, 0.1);
+  border: 1px solid var(--pink);
+  border-radius: 8px;
+  padding: 14px 18px;
+  color: var(--pink);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.error-icon {
+  width: 24px;
+  height: 24px;
+  background: var(--pink);
+  color: var(--bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* Transitions */
+.slide-down-enter-active,
+.slide-down-leave-active {
+  transition: all 0.3s ease;
+}
+
+.slide-down-enter-from {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.slide-down-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
 
 @media (max-width: 640px) {
 
