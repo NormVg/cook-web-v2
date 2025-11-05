@@ -20,9 +20,13 @@ import { useInView, motion } from "motion-v"
         :animate="{ opacity: 1, y: 0,  filter: 'blur(0px)' }"
         :transition="{  delay: 0.2 , duration:0.3}"
     >
-      <!-- <NuxtLink to="/app">
+       <NuxtLink to="https://github.com/TheAlphaOnes/cook">
+        <div class="nav-item">CLI</div>
+      </NuxtLink>
+
+      <NuxtLink to="/app">
       <div class="nav-item">APP</div>
-      </NuxtLink> -->
+      </NuxtLink>
 
       <div class="nav-item" @click="scrollToElement('#feature-section')">FEATURES</div>
 
