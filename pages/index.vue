@@ -2,7 +2,7 @@
 import CircleImg from "~/assets/img/circle-bg.png"
 import BasicFooter from "~/components/base/BasicFooter.vue";
 import About from "~/components/home/About.vue";
-import CustomCursor from "~/components/home/CustomCursor.vue";
+
 import Features from "~/components/home/Features.vue";
 
 const isInitLoad = ref(true);
@@ -49,7 +49,7 @@ onMounted(() => {
      <BasicFooter/>
    </div>
 
-  <CustomCursor />
+
 </div>
 
 
@@ -60,10 +60,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-* {
-cursor: none;
 
-}
 
 
 
