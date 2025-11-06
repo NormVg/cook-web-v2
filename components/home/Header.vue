@@ -25,7 +25,7 @@ import { useInView, motion } from "motion-v"
       </NuxtLink>
 
       <NuxtLink to="/app">
-      <div class="nav-item">APP</div>
+      <div class="nav-item">LOGIN</div>
       </NuxtLink>
 
       <NuxtLink to="/explore">
