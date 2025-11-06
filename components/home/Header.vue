@@ -28,9 +28,13 @@ import { useInView, motion } from "motion-v"
       <div class="nav-item">APP</div>
       </NuxtLink>
 
+      <NuxtLink to="/explore">
+        <div class="nav-item">EXPLORE</div>
+      </NuxtLink>
+
       <div class="nav-item" @click="scrollToElement('#feature-section')">FEATURES</div>
 
-      <div class="nav-item" @click="scrollToElement('#about-box')">ABOUT</div>
+
 
       <!-- <NuxtLink to="/login">
       <div class="nav-item loginBtn">LOGIN</div>

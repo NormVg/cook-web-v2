@@ -8,7 +8,7 @@
 <ExploreMenu :options="types" :default-value="currentType"/>
 
       </div>
-    <div id="dtb-sub">JOINED BY 1k+ DEVELOPERS • 20K+ LINE’S OF CODE SAVED</div>
+    <div id="dtb-sub">SHARING CODE • WRITING FASTER • FOR LAZY DEVS</div>
   </div>
 </template>
 
